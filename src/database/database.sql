@@ -59,7 +59,8 @@ CREATE TABLE obras (
     ancho_cm INTEGER NOT NULL,
     peso_kg NUMERIC(6, 2) NOT NULL,
     color_principal VARCHAR(20) NOT NULL,
-    color_secundario VARCHAR(20) NOT NULL
+    color_secundario VARCHAR(20) NOT NULL,
+    obra_destacada BOOLEAN,
 );
 ------TABLA ENCARGOS ------
 CREATE TABLE dimensiones (
@@ -85,7 +86,38 @@ CREATE TABLE encargos (
     imagen BYTEA
 );
 
------
+-----TABLA USERS-----
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    nombre_apellidos VARCHAR(255) NOT NULL,
+    categoria VARCHAR(50) CHECK (categoria IN ('Artistas', 'Representantes', 'Compradores')) NOT NULL,
+    foto_documento BYTEA NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo_electronico VARCHAR(255) NOT NULL,
+    genero VARCHAR(20) CHECK (genero IN ('Femenino', 'Masculino')),
+    telefono VARCHAR(20) NOT NULL
+);
+CREATE TABLE artistas (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    foto_perfil BYTEA NOT NULL,
+    statement TEXT NOT NULL,
+    biografia TEXT NOT NULL,
+    curriculum BYTEA NOT NULL,
+    encargos BOOLEAN NOT NULL,
+    dimensiones_id INTEGER REFERENCES dimensiones(id),
+    tecnica_id INTEGER REFERENCES tecnica(id),
+    tipo_perfil VARCHAR(50) CHECK (tipo_perfil IN ('PS', 'PS + OC', 'PS + EC', 'PS + EC + EI', 'PS + EC + EI + CP', 'Personalizado')),
+    porcentaje_artista VARCHAR(50) CHECK (
+        (tipo_perfil = 'PS' AND porcentaje_artista = '65% (artista), 35% (Galería)') OR
+        (tipo_perfil = 'PS + OC' AND porcentaje_artista = '60% (artista), 40% (Galería)') OR
+        (tipo_perfil = 'PS + EC' AND porcentaje_artista = '59% (artista), 41% (Galería)') OR
+        (tipo_perfil = 'PS + EC + EI' AND porcentaje_artista = '57% (artista), 43% (Galería)') OR
+        (tipo_perfil = 'PS + EC + EI + CP' AND porcentaje_artista = '55% (artista), 45% (Galería)') OR
+        (tipo_perfil = 'Personalizado')
+    )
+);
+
 
 
 
