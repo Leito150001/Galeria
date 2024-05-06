@@ -118,6 +118,13 @@ CREATE TABLE artistas (
     )
 );
 
+CREATE TABLE otros (
+    id SERIAL PRIMARY KEY,
+    terminos_condiciones TEXT,
+    politica_cookies TEXT,
+    faqs TEXT
+);
+
 
 
 
