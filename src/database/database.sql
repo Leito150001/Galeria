@@ -95,7 +95,9 @@ CREATE TABLE users (
     fecha_nacimiento DATE NOT NULL,
     correo_electronico VARCHAR(255) NOT NULL,
     genero VARCHAR(20) CHECK (genero IN ('Femenino', 'Masculino')),
-    telefono VARCHAR(20) NOT NULL
+    telefono VARCHAR(20) NOT NULL,
+    username VARCHAR(50) NOT NULL ,
+    password VARCHAR(100) NOT NULL
 );
 CREATE TABLE artistas (
     id SERIAL PRIMARY KEY,

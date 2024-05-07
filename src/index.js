@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 
   //Routes
 app.use(require("./routes"));
+app.use(require("./routes/users"))
 
 //start the server
 app.listen(app.get("port"), () => {
